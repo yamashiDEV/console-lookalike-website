@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inconsolata&family=Lato:wght@100;900&family=League+Gothic&family=Smooch+Sans:wght@600&display=swap" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<style type="text/css">
+
+*{
+	font-size: 50px;
+	background-color: black;
+
+	padding:0;
+	font-family: 'Inconsolata', monospace;
+
+}
+
+
+
+#text {
+	display: inline-block;
+	color: 	#ff0000;
+	border-right: 3px solid #2980b9;
+	font-size: 18px;
+}
+.skip h1{
+	color: white;
+	font-size: 15px;
+	float: right;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+	<div id="text"></div>
+	
+</div>
+<div class="skip">
+	<a href="skipped.html"> <h1>gain access</h1></a>
+</div>
+<script type="text/javascript">
+
+
+var _CONTENT = [ "Authenticating user...","connecting to...", "Authorizing access to..."  ];
+
+var _PART = 0;
+
+var _PART_INDEX = 0;
+
+var _INTERVAL_VAL;
+
+var _ELEMENT = document.querySelector("#text");
+
+function Type() { 
+	var text =  _CONTENT[_PART].substring(0, _PART_INDEX + 1);
+	_ELEMENT.innerHTML = text;
+	_PART_INDEX++;
+
+	if(text === _CONTENT[_PART]) {
+		clearInterval(_INTERVAL_VAL);
+		setTimeout(function() {
+			_INTERVAL_VAL = setInterval(Delete, 3);
+		}, 1000);
+	}
+}
+
+function Delete() {
+	var text =  _CONTENT[_PART].substring(0, _PART_INDEX - 1);
+	_ELEMENT.innerHTML = text;
+	_PART_INDEX--;
+
+	if(text === '') {
+		clearInterval(_INTERVAL_VAL);
+
+		if(_PART == (_CONTENT.length - 1))
+			_PART = 0;
+		else
+			_PART++;
+		_PART_INDEX = 0;
+
+		setTimeout(function() {
+			_INTERVAL_VAL = setInterval(Type, 100);
+		}, 100);
+	}
+}
+
+_INTERVAL_VAL = setInterval(Type, 100);
+
+</script>
+
+</body>
+</html>
